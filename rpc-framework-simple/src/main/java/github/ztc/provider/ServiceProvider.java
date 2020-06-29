@@ -8,7 +8,7 @@ package github.ztc.provider;
 */
 public interface ServiceProvider {
 
-    void addServiceProvider();
+    <T> void addServiceProvider();
 
 
     void getServiceProvider();
