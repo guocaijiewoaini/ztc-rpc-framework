@@ -12,5 +12,5 @@ import github.ztc.dto.RpcRequest;
 public interface ClientTransport {
 
 
-    void sendRpcRequest(RpcRequest rpcRequest);
+    Object sendRpcRequest(RpcRequest rpcRequest);
 }
