@@ -17,7 +17,7 @@ import java.util.concurrent.CompletableFuture;
 public class RpcClientProxy implements InvocationHandler {
     private ClientTransport clientTransport;
 
-    RpcClientProxy(ClientTransport clientTransport){
+    public RpcClientProxy(ClientTransport clientTransport){
         this.clientTransport=clientTransport;
     }
 
@@ -53,6 +53,6 @@ public class RpcClientProxy implements InvocationHandler {
 
         }
 
-        return rpcResponse;
+        return rpcResponse.getData();
     }
 }

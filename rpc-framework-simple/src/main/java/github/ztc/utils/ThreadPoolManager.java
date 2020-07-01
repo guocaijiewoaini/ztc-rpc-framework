@@ -21,9 +21,9 @@ public class ThreadPoolManager {
 
     public static ExecutorService createThreadPoolIfAbsent(String threadNamePrefix){
         ThreadPoolConfig config =new ThreadPoolConfig();
-        return createThreadPool(config,threadNamePrefix,false);
+        return createThreadPoolIfAbsent(config,threadNamePrefix,false);//默认false,不是daemon线程
     }
-    public static ExecutorService createThreadPoolIfAbsent(ThreadPoolConfig config,String threadNamePrefix,Boolean daemon){
+    private static ExecutorService createThreadPoolIfAbsent(ThreadPoolConfig config,String threadNamePrefix,Boolean daemon){
         ExecutorService threadPool =threadPools.computeIfAbsent(threadNamePrefix,k->createThreadPool(config,threadNamePrefix,daemon));
         //拿到线程池后，检查它的状态
         if(threadPool.isShutdown()||threadPool.isTerminated()){
@@ -35,7 +35,7 @@ public class ThreadPoolManager {
 
     }
 
-    public static ExecutorService createThreadPool(ThreadPoolConfig config,String threadNamePrefix,Boolean daemon){
+    private static ExecutorService createThreadPool(ThreadPoolConfig config,String threadNamePrefix,Boolean daemon){
         ThreadFactory threadFactory =createThreadFactory(threadNamePrefix,daemon);//创建threadFactory 设置线程名字和是否后台线程
         return new ThreadPoolExecutor(
                 config.getCorePoolSize(),
@@ -48,7 +48,7 @@ public class ThreadPoolManager {
     }
 
 
-    public static ThreadFactory createThreadFactory(String threadNamePrefix,Boolean daemon){
+    private static ThreadFactory createThreadFactory(String threadNamePrefix,Boolean daemon){
         if(threadNamePrefix!=null){
             if(daemon!=null){
                 return new ThreadFactoryBuilder()
@@ -62,5 +62,21 @@ public class ThreadPoolManager {
             }
         }
         return Executors.defaultThreadFactory();
+    }
+
+    public static void shutDownAllThreadPool(){
+        log.info("call shutDownAllThreadPool method");
+        threadPools.entrySet().parallelStream().forEach(entry->
+        {
+            ExecutorService threadPool =entry.getValue();
+            threadPool.shutdown();
+            log.info("shutdown threadPool [{}] [{}]",entry.getKey(),threadPool.isTerminated());
+            try {
+                threadPool.awaitTermination(10,TimeUnit.SECONDS);
+            } catch (InterruptedException e) {
+                log.error("Thread pool never terminated");
+                threadPool.shutdownNow();
+            }
+        });
     }
 }

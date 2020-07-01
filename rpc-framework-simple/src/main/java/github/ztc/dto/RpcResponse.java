@@ -1,10 +1,7 @@
 package github.ztc.dto;
 
 import github.ztc.rpcEnum.RpcResponseCode;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.io.Serializable;
 
@@ -12,6 +9,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @Setter
+@Getter
 public class RpcResponse<T> implements Serializable {
 
     private static final long serialVersionUID = 6498351746454550788L;
@@ -28,7 +26,7 @@ public class RpcResponse<T> implements Serializable {
     //响应数据
     private T data;
 
-    public RpcResponse<T> success(T data,String requestId){
+    public static <T> RpcResponse<T> success(T data,String requestId){
 //        RpcResponse build = RpcResponse.builder().requestId(requestId).data(data).build();
         RpcResponse<T> resp = new RpcResponse<>();
         resp.setData(data);
@@ -39,7 +37,7 @@ public class RpcResponse<T> implements Serializable {
         return resp;
     }
 
-    public RpcResponse<T> fail(RpcResponseCode rpcResponseCode){
+    public static <T> RpcResponse<T> fail(RpcResponseCode rpcResponseCode){
         RpcResponse<T> resp =new RpcResponse<>();
         resp.setMessage(rpcResponseCode.getMsg());
         resp.setCode(rpcResponseCode.getCode());

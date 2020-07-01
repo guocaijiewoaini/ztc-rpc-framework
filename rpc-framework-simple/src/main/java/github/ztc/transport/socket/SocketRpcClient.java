@@ -14,7 +14,7 @@ import java.net.Socket;
 public class SocketRpcClient implements ClientTransport {
     private ServiceDiscovery serviceDiscovery;
     //传入服务发现接口类对象
-    SocketRpcClient(){
+    public SocketRpcClient(){
         this.serviceDiscovery=new ServiceDiscoveryImpl();
     }
     public Object sendRpcRequest(RpcRequest rpcRequest) {
