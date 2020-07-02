@@ -8,7 +8,8 @@ import java.lang.reflect.Proxy;
 public class testConsumer {
     public static void main(String[] args) {
         RpcClientProxy proxy = new RpcClientProxy(new SocketRpcClient());
-        HelloService helloService = proxy.getProxyInstance(HelloService.class);
-        helloService.diaoYong();
+        HelloServiceInterface helloService = proxy.getProxyInstance(HelloServiceInterface.class);
+        String s = (String)helloService.diaoYong();
+        System.out.println(s);
     }
 }

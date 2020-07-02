@@ -1,7 +1,7 @@
 package github.ztc.test;
 
-public class HelloService {
-    public void diaoYong(){
-        System.out.println("被rpc调用了");
+public class HelloService implements HelloServiceInterface {
+    public String diaoYong(){
+        return "rpc success";
     }
 }

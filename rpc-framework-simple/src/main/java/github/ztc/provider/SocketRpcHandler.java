@@ -36,6 +36,6 @@ public class SocketRpcHandler {
         } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();
         }
-        return request;
+        return result;
     }
 }

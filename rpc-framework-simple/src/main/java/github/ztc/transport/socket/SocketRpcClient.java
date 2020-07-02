@@ -23,7 +23,7 @@ public class SocketRpcClient implements ClientTransport {
         //注册中心根据服务找到对应的socketAdress  ( ip地址和端口)返回
 //        InetSocketAddress inetSocketAddress =new InetSocketAddress("",1000);
         try(Socket socket =new Socket()){
-            socket.bind(inetSocketAddress);
+            socket.connect(inetSocketAddress);
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
             objectOutputStream.writeObject(rpcRequest);//发送rpc请求
             ObjectInputStream objectInputStream = new ObjectInputStream(socket.getInputStream());
