@@ -9,6 +9,10 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
+    <properties>
+        <kryo.version>4.0.2</kryo.version>
+    </properties>
+
     <artifactId>rpc-framework-simple</artifactId>
     <build>
         <plugins>
@@ -30,6 +34,16 @@
             <artifactId>lombok</artifactId>
             <version>1.16.18</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-all</artifactId>
+            <version>${netty.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.esotericsoftware</groupId>
+            <artifactId>kryo</artifactId>
+            <version>${kryo.version}</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/com.guicedee.services/sl4j -->
         <!--<dependency>-->

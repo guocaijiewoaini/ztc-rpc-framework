@@ -3,7 +3,7 @@ package github.ztc.proxy;
 import github.ztc.dto.RpcRequest;
 import github.ztc.dto.RpcResponse;
 import github.ztc.transport.ClientTransport;
-import github.ztc.transport.netty.NettyRpcClient;
+import github.ztc.transport.netty.client.NettyRpcClient;
 import github.ztc.transport.socket.SocketRpcClient;
 import lombok.extern.slf4j.Slf4j;
 
@@ -11,7 +11,6 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.util.UUID;
-import java.util.concurrent.CompletableFuture;
 
 @Slf4j
 public class RpcClientProxy implements InvocationHandler {
